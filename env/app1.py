@@ -1,38 +1,43 @@
+from flask import Flask, render_template, request, jsonify
+from pytube import YouTube
+import os
 import customtkinter as ctk
 from tkinter import ttk
 from pytube import YouTube
-import os
 from flask import Flask
-from flask import Flask, render_template, jsonify, request
 from flask_ngrok2 import run_with_ngrok
 import subprocess
 import requests
 import time
 
 
-def download_video():
-    url = entry_url.get()
-    resolution = resolutions_var.get()
 
-    progress_label.pack(pady=(10, 5))
-    progress_bar.pack(pady=(10, 5))
-    status_label.pack(pady=(10, 5))
+
+app = Flask(__name__, template_folder="")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/download", methods=["POST"])
+def download_video():
+    url = request.form.get("url")
+    resolution = request.form.get("resolution")
 
     try:
         yt = YouTube(url, on_progress_callback=on_progress)
         stream = yt.streams.filter(res=resolution).first()
 
-        #Download the video into specific directory
-        os.path.join("downloads", f"{yt.title}.mp4")
+        output_path = os.path.join("downloads", f"{yt.title}.mp4")
         stream.download(output_path="downloads")
 
-        status_label.configure(text="Downloaded!", text_color="white", fg_color="green")
+        return jsonify({"status": "success", "message": "Downloaded!"})
 
     except Exception as e:
-        status_label.configure(text=f"Error {str(e)}", text_color="white", fg_color="red")
-
+        return jsonify({"status": "error", "message": str(e)})
 
 def on_progress(stream, chunk, bytes_remaining):
+    # Your existing on_progress function...
     total_size = stream.filesize
     bytes_downloaded = total_size - bytes_remaining
     percentage_completed = (bytes_downloaded/total_size) * 100
@@ -41,7 +46,6 @@ def on_progress(stream, chunk, bytes_remaining):
     progress_label.update()
 
     progress_bar.set(float(percentage_completed / 100))
-
 
 
 #create a root window
@@ -89,20 +93,6 @@ progress_bar.set(0)    #Default setting
 status_label = ctk.CTkLabel(content_frame, text="")
 
 
-app = Flask(__name__)
-@app.route("/")
-def hello_world():
-    return "Namaste"
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-#run_with_ngrok(app=app, auth_token="2dLc5CIPzTT97F46VyAFsOATQol_4pZPkX2zhG54aE6nsyHoJ")  # Start ngrok when app is run
-#ngrok = subprocess.Popen(['ngrok', 'http', '8000'])
-#ngrok = subprocess.Popen(['env/Scripts/ngrok-asgi.exe', 'http', '8000'])
-#app = Flask(__name__, template_folder="app.py", static_folder="")
-
-
-#To start the App
-#root.mainloop()
