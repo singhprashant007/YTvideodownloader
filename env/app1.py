@@ -5,6 +5,7 @@ import customtkinter as ctk
 from tkinter import ttk
 from pytube import YouTube
 from flask import Flask
+from flask_socketio import SocketIO, emit
 from flask_ngrok2 import run_with_ngrok
 import subprocess
 import requests
@@ -14,12 +15,14 @@ import time
 
 
 app = Flask(__name__, template_folder="")
+socketio = SocketIO(app)
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
 @app.route("/download", methods=["POST"])
+@socketio.on('download_video')
 def download_video():
     url = request.form.get("url")
     resolution = request.form.get("resolution")
@@ -32,9 +35,11 @@ def download_video():
         stream.download(output_path="downloads")
 
         return jsonify({"status": "success", "message": "Downloaded!"})
+        #socketio.emit('download_status', {"status": "success", "message": "Downloaded!"})
 
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)})
+        #return jsonify({"status": "error", "message": str(e)})
+        socketio.emit('download_status', {"status": "error", "message": str(e)})
 
 def on_progress(stream, chunk, bytes_remaining):
     # Your existing on_progress function...
@@ -45,8 +50,8 @@ def on_progress(stream, chunk, bytes_remaining):
     progress_label.configure(text=str(int(percentage_completed)) + "%")
     progress_label.update()
 
-    progress_bar.set(float(percentage_completed / 100))
-
+    #progress_bar.set(float(percentage_completed / 100))
+    socketio.emit('progress_update', {'percentage': int(percentage_completed)})
 
 #create a root window
 root = ctk.CTk()
@@ -95,4 +100,4 @@ status_label = ctk.CTkLabel(content_frame, text="")
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app,debug=True)
