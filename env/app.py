@@ -2,6 +2,12 @@ import customtkinter as ctk
 from tkinter import ttk
 from pytube import YouTube
 import os
+from flask import Flask
+from flask import Flask, render_template, jsonify, request
+from flask_ngrok2 import run_with_ngrok
+import subprocess
+import requests
+import time
 
 
 def download_video():
@@ -84,5 +90,21 @@ status_label = ctk.CTkLabel(content_frame, text="")
 
 
 
+#run_with_ngrok(app=app, auth_token="2dLc5CIPzTT97F46VyAFsOATQol_4pZPkX2zhG54aE6nsyHoJ")  # Start ngrok when app is run
+
+app = Flask(__name__)
+@app.route("/")
+def hello_world():
+    return "Namaste"
+    
+
+
+#ngrok = subprocess.Popen(['ngrok', 'http', '8000'])
+#ngrok = subprocess.Popen(['env/Scripts/ngrok-asgi.exe', 'http', '8000'])
+#app = Flask(__name__, template_folder="app.py", static_folder="")
+
+
 #To start the App
-root.mainloop()
+#root.mainloop()
+if __name__ == '__main__':
+    app.run()
