@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader</title>
+    <title>YT Video Downloader</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <h1>YouTube Downloader</h1>
+    <div>
+        <h1>YouTube Video Downloader</h1>
     <form action="/download" method="post">
         <label for="url">Enter the YouTube URL:</label>
         <input type="text" id="url" name="url" required>
+        <br>
         
         <label for="resolution">Select resolution:</label>
         <select id="resolution" name="resolution">
@@ -20,10 +24,12 @@
             <option value="240p">240p</option>
             <option value="144p">144p</option>
         </select>
-        
+        <br>
         <button type="submit">Download</button>
     </form>
+    </div>
 </body>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
 <script type="text/javascript">
     var socket = io.connect('http://' + document.domain + ':' + location.port);
