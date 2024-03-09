@@ -32,6 +32,7 @@ body div{
 body div input{
     background-color: #fff;
     color: #000;
+    border-radius: 5px;
     text-decoration: none;
     font-size: 1rem;
     padding: 1px;
@@ -40,6 +41,7 @@ body div input{
 
 #resolution{
     margin: 4px;
+    border-radius: 5px;
     background-color: rgb(206, 206, 106);
 }
 
