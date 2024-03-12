@@ -19,6 +19,7 @@ body{
 body div{
     background-color: #6d6666;
     margin: 5px;
+    margin-top: 100px;
     padding: 5px;
     text-align: center;
     align-items: center;
@@ -34,7 +35,7 @@ body div input{
     color: #000;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 1px;
     margin: 1px;
 }

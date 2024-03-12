@@ -7,9 +7,9 @@ from pytube import YouTube
 from flask import Flask
 from flask_socketio import SocketIO, emit
 from flask_ngrok2 import run_with_ngrok
-import subprocess
-import requests
-import time
+# import subprocess
+# import requests
+# import time
 
 
 
