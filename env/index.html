@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YT Video Downloader</title>
     <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
 
 </head>
 <body>
@@ -12,7 +13,7 @@
         <h1>YouTube Video Downloader</h1>
     <form action="/download" method="post">
         <label for="url">Enter the YouTube URL:</label>
-        <input type="text" id="url" name="url" required>
+        <input type="url" id="url" name="url" required>
         <br>
         
         <label for="resolution">Select resolution:</label>
@@ -20,7 +21,7 @@
             <option value="1080p">1080p</option>
             <option value="720p">720p</option>
             <option value="480p">480p</option>
-            <option value="360p">360p</option>
+            <option value="360p" selected>360p</option>
             <option value="240p">240p</option>
             <option value="144p">144p</option>
         </select>
@@ -29,18 +30,4 @@
     </form>
     </div>
 </body>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
-<script type="text/javascript">
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-    socket.on('progress_update', function(data) {
-        document.getElementById("progress_label").innerHTML = data.percentage + "%";
-        document.getElementById("progress_bar").value = data.percentage;
-    });
-
-    socket.on('download_status', function(data) {
-        alert(data.message);
-    });
-</script>
 </html>

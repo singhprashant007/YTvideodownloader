@@ -7,7 +7,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30vh;
+    height: 60vh;
     margin: 5px;
     padding: 5px;
     color: #f0d4d4;
@@ -20,19 +20,21 @@ body div{
     background-color: #6d6666;
     margin: 5px;
     padding: 5px;
+    width: 50vw;
     text-align: center;
-    align-items: center;
-    justify-content: center;
     border: 1px solid #fff;
     border-radius: 5px;
-    height: 80%;
-    width: 50%;
-    overflow: scroll;
+}
+
+body div h1{
+    margin: 10px;
+    padding: 5px;
 }
 
 body div input{
     background-color: #fff;
     color: #000;
+    border: #fff;
     border-radius: 5px;
     text-decoration: none;
     font-size: 0.9rem;
@@ -41,14 +43,28 @@ body div input{
 }
 
 #resolution{
-    margin: 4px;
+    margin: 6px;
     border-radius: 5px;
     background-color: rgb(206, 206, 106);
 }
 
 button{
     margin: 2px;
-    padding: 2px;
+    padding: 4px 5px;
+    border: blue;
     border-radius: 5px;
-    color: red;
+    background-color: #008CBA;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2), 0 6px 18px 0 rgba(0,0,0,0.19);
 }
+
+button:hover{
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
