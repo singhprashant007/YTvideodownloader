@@ -50,7 +50,7 @@ ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 
 #title of the window
-root.title("YouTube Downloader!")
+root.title("YouTube Video Downloader!")
 
 #Set min and max width and height
 root.geometry("720x480")
